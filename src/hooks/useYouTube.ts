@@ -27,52 +27,67 @@ export function useYouTube() {
   const progressIntervalRef = useRef<any>(null);
 
   useEffect(() => {
+    const initPlayer = () => {
+      if (playerRef.current) return; // already initialized
+      playerRef.current = new window.YT.Player('youtube-hidden-player', {
+        height: '100%',
+        width: '100%',
+        videoId: '',
+        playerVars: {
+          autoplay: 1,
+          controls: 0,
+          disablekb: 1,
+          fs: 0,
+          modestbranding: 1,
+          rel: 0,
+          showinfo: 0,
+          playsinline: 1
+        },
+        events: {
+          onReady: (event: any) => {
+            setPlayerReady(true);
+            event.target.unMute();
+            event.target.setVolume(50);
+          },
+          onStateChange: (event: any) => {
+            if (event.data === window.YT.PlayerState.PLAYING) {
+              event.target.unMute();
+              setIsPlaying(true);
+              setDuration(event.target.getDuration());
+            } else if (event.data === window.YT.PlayerState.PAUSED) {
+              setIsPlaying(false);
+            } else if (event.data === window.YT.PlayerState.ENDED) {
+              setIsPlaying(false);
+              handleTrackEnded();
+            }
+          },
+          onError: (event: any) => {
+            console.error("YouTube Player Error", event.data);
+            handleTrackEnded();
+          }
+        }
+      });
+    };
+
     if (!window.YT) {
       const tag = document.createElement('script');
       tag.src = 'https://www.youtube.com/iframe_api';
       const firstScriptTag = document.getElementsByTagName('script')[0];
       firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
-
-      window.onYouTubeIframeAPIReady = () => {
-        playerRef.current = new window.YT.Player('youtube-hidden-player', {
-          height: '0',
-          width: '0',
-          videoId: '',
-          playerVars: {
-            autoplay: 1,
-            controls: 0,
-            disablekb: 1,
-            fs: 0,
-            modestbranding: 1,
-            rel: 0,
-            showinfo: 0,
-            playsinline: 1
-          },
-          events: {
-            onReady: (event: any) => {
-              setPlayerReady(true);
-              event.target.setVolume(volume);
-            },
-            onStateChange: (event: any) => {
-              if (event.data === window.YT.PlayerState.PLAYING) {
-                setIsPlaying(true);
-                setDuration(event.target.getDuration());
-              } else if (event.data === window.YT.PlayerState.PAUSED) {
-                setIsPlaying(false);
-              } else if (event.data === window.YT.PlayerState.ENDED) {
-                setIsPlaying(false);
-                handleTrackEnded();
-              }
-            },
-            onError: (event: any) => {
-              console.error("YouTube Player Error", event.data);
-              // Skip to next if there's an error playing this one
-              handleTrackEnded();
-            }
-          }
-        });
-      };
+      window.onYouTubeIframeAPIReady = initPlayer;
+    } else if (window.YT && window.YT.Player) {
+      initPlayer();
+    } else {
+      window.onYouTubeIframeAPIReady = initPlayer;
     }
+
+    return () => {
+      // Cleanup player on unmount
+      if (playerRef.current && playerRef.current.destroy) {
+         playerRef.current.destroy();
+         playerRef.current = null;
+      }
+    };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleTrackEnded = useCallback(() => {
@@ -109,6 +124,16 @@ export function useYouTube() {
       if (results.length > 0) {
         setPlaylist(results);
         setCurrentIndex(0);
+        
+        // Call loadVideoById directly here instead of using useEffect
+        // to maintain the user interaction trace better (if possible).
+        if (playerReady && playerRef.current) {
+           playerRef.current.loadVideoById(results[0].id);
+           playerRef.current.playVideo();
+           setIsPlaying(true);
+           setProgress(0);
+           setDuration(0);
+        }
       } else {
         setError('No results found.');
       }
@@ -120,12 +145,18 @@ export function useYouTube() {
   };
 
   useEffect(() => {
+    // We check against the currently playing video id to avoid double-loading on searchAndPlay's effect trigger.
     if (playerReady && currentIndex >= 0 && playlist[currentIndex]) {
-      const videoId = playlist[currentIndex].id;
-      playerRef.current.loadVideoById(videoId);
-      setIsPlaying(true);
-      setProgress(0);
-      setDuration(0);
+       const videoId = playlist[currentIndex].id;
+       // Only load if it's changing!
+       const currentUrl = playerRef.current.getVideoUrl?.() || '';
+       if (!currentUrl.includes(videoId)) {
+         playerRef.current.loadVideoById(videoId);
+         playerRef.current.playVideo();
+         setIsPlaying(true);
+         setProgress(0);
+         setDuration(0);
+       }
     }
   }, [currentIndex, playerReady]);
 
@@ -137,6 +168,24 @@ export function useYouTube() {
       playerRef.current.playVideo();
     }
   }, [isPlaying]);
+
+  const fetchMoreRelatedTracks = async (channelTitle: string) => {
+    try {
+      const moreResults = await searchYouTube(channelTitle + " music");
+      // filter out duplicates
+      const uniqueResults = moreResults.filter(newVideo => !playlist.find(p => p.id === newVideo.id));
+      if (uniqueResults.length > 0) {
+        setPlaylist(prev => [...prev, ...uniqueResults]);
+        setCurrentIndex(prev => prev + 1);
+        return;
+      }
+    } catch(err) {
+      console.error("Failed to fetch more tracks for radio", err);
+    }
+    // fallback if error or no unique results
+    setIsPlaying(false);
+    if (playerRef.current) playerRef.current.stopVideo();
+  };
 
   const nextTrack = useCallback(() => {
     if (shuffleState && playlist.length > 1) {
@@ -150,8 +199,13 @@ export function useYouTube() {
     } else if (repeatState === 'context') {
       setCurrentIndex(0);
     } else {
-      setIsPlaying(false);
-      if (playerRef.current) playerRef.current.stopVideo();
+      // Endless Radio: Fetch more songs based on the artist
+      if (playlist[currentIndex]) {
+        fetchMoreRelatedTracks(playlist[currentIndex].channelTitle);
+      } else {
+        setIsPlaying(false);
+        if (playerRef.current) playerRef.current.stopVideo();
+      }
     }
   }, [currentIndex, playlist, shuffleState, repeatState]);
 

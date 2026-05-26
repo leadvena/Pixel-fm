@@ -37,7 +37,7 @@ export default function App() {
       <div className="crt-vignette" />
 
       {/* Hidden YouTube Player div placeholder (wrapped to prevent React DOM conflicts) */}
-      <div className="hidden absolute w-0 h-0 invisible" aria-hidden="true">
+      <div className="fixed top-0 left-0 w-32 h-32 opacity-[0.01] pointer-events-none z-0" aria-hidden="true">
         <div id="youtube-hidden-player" />
       </div>
 
