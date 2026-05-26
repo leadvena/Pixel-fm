@@ -8,7 +8,11 @@ import Queue from './Queue';
 import { YouTubeVideo } from '../utils/youtubeApi';
 
 interface PlayerProps {
-  playerState: any;
+  isPlaying: boolean;
+  progressMs: number;
+  durationMs: number;
+  volume: number;
+  currentVideo: YouTubeVideo | null;
   queue: YouTubeVideo[];
   onSearch: () => void;
   togglePlay: () => void;
@@ -18,10 +22,16 @@ interface PlayerProps {
   toggleShuffle: () => void;
   toggleRepeat: () => void;
   seek: (ms: number) => void;
+  shuffleState: boolean;
+  repeatState: 'off' | 'track' | 'context';
 }
 
 export default function Player({
-  playerState,
+  isPlaying,
+  progressMs,
+  durationMs,
+  volume,
+  currentVideo,
   queue,
   onSearch,
   togglePlay,
@@ -31,6 +41,8 @@ export default function Player({
   toggleShuffle,
   toggleRepeat,
   seek,
+  shuffleState,
+  repeatState,
 }: PlayerProps) {
   
   const [sparkles, setSparkles] = useState<{ id: number; top: number; left: number; delay: number }[]>([]);

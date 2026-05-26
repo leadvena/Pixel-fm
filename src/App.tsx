@@ -36,8 +36,10 @@ export default function App() {
       {/* 2. CRT Screen Vignette corners shadowing */}
       <div className="crt-vignette" />
 
-      {/* Hidden YouTube Player div placeholder */}
-      <div id="youtube-hidden-player" className="hidden absolute w-0 h-0 invisible" />
+      {/* Hidden YouTube Player div placeholder (wrapped to prevent React DOM conflicts) */}
+      <div className="hidden absolute w-0 h-0 invisible" aria-hidden="true">
+        <div id="youtube-hidden-player" />
+      </div>
 
       {/* RENDER PAGES */}
       {(!playerReady) ? (
