@@ -1,0 +1,6 @@
+{
+  "name": "PIXEL.FM Spotify Player",
+  "description": "A 16-bit pixel art retro gaming styled Spotify Web Player with PKCE authorization, real-time sync, and custom animations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
