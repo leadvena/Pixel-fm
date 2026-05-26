@@ -17,7 +17,7 @@ export default function VolumeSlider({ currentVolume, onVolumeChange }: VolumeSl
     if (currentVolume === 0) return <VolumeX size={14} className="text-deep-magenta animate-pulse" />;
     if (currentVolume < 30) return <Volume size={14} className="text-bubblegum" />;
     if (currentVolume < 70) return <Volume1 size={14} className="text-hot-pink" />;
-    return <Volume2 size={14} className="text-white animate-pulse" />;
+    return <Volume2 size={14} className="text-retro-text animate-pulse" />;
   };
 
   const handleSegmentClick = (index: number) => {
@@ -38,7 +38,7 @@ export default function VolumeSlider({ currentVolume, onVolumeChange }: VolumeSl
       </div>
 
       {/* Retro Volume Meter with 10 chunky wedge bars */}
-      <div className="w-full h-8 bg-retro-dark border-4 border-black p-1.5 flex justify-between items-end gap-1 select-none">
+      <div className="w-full h-8 bg-retro-dark border-4 border-retro-text p-1.5 flex justify-between items-end gap-1 select-none">
         {Array.from({ length: steps }).map((_, i) => {
           const stepPercent = ((i + 1) / steps) * 100;
           const isActive = currentVolume >= stepPercent;
@@ -53,12 +53,12 @@ export default function VolumeSlider({ currentVolume, onVolumeChange }: VolumeSl
               onClick={() => handleSegmentClick(i)}
               onMouseEnter={() => setHoveredIndex(i)}
               onMouseLeave={() => setHoveredIndex(null)}
-              className={`flex-1 cursor-pointer transition-all border-2 border-black ${
+              className={`flex-1 cursor-pointer transition-all border-2 border-retro-text ${
                 isActive 
-                  ? 'bg-hot-pink hover:bg-bubblegum shadow-[inset_-2px_-2px_0_0_#C2185B]' 
+                  ? 'bg-hot-pink hover:bg-bubblegum shadow-[inset_-2px_-2px_0_0_var(--color-deep-magenta)]' 
                   : isHovered
-                    ? 'bg-[#5a003d] border-white shadow-none'
-                    : 'bg-[#250017] shadow-none'
+                    ? 'bg-retro-text border-white shadow-none'
+                    : 'bg-retro-text shadow-none'
               }`}
               style={{ 
                 height: barHeight,

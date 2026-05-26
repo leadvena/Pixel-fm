@@ -45,12 +45,12 @@ export default function ProgressBar({ currentMs, durationMs, onSeek }: ProgressB
       <div 
         ref={barRef}
         onClick={handleClick}
-        className="relative h-6 bg-retro-dark border-4 border-black box-content cursor-pointer hover:shadow-[0_0_8px_rgba(255,45,120,0.4)] transition-all"
+        className="relative h-6 bg-retro-dark border-4 border-retro-text box-content cursor-pointer hover:shadow-[0_0_8px_rgba(255,45,120,0.4)] transition-all"
       >
         {/* Pixel Segments Grid Effect */}
         <div className="absolute inset-0 w-full h-full flex justify-between pointer-events-none z-10 select-none">
           {Array.from({ length: 16 }).map((_, i) => (
-            <div key={i} className="h-full w-[2px] bg-black opacity-30" />
+            <div key={i} className="h-full w-[2px] bg-retro-text opacity-30" />
           ))}
         </div>
 
@@ -59,14 +59,14 @@ export default function ProgressBar({ currentMs, durationMs, onSeek }: ProgressB
           className="h-full bg-hot-pink select-none transition-all duration-300"
           style={{ 
             width: `${percent}%`,
-            boxShadow: 'inset -4px -4px 0 0 #C2185B, inset 4px 4px 0 0 #FFB3C6'
+            boxShadow: 'inset -4px -4px 0 0 var(--color-deep-magenta), inset 4px 4px 0 0 #FFB3C6'
           }}
         />
 
         {/* Highlight glowing notch if progress is active */}
         {percent > 0 && (
           <div 
-            className="absolute top-0 h-full w-2 bg-white border border-black z-20"
+            className="absolute top-0 h-full w-2 bg-white border border-retro-text z-20"
             style={{ left: `calc(${percent}% - 4px)` }}
           />
         )}

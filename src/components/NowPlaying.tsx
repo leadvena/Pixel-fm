@@ -15,7 +15,7 @@ export default function NowPlaying({ currentVideo, isPlaying }: NowPlayingProps)
   return (
     <div className="flex flex-col items-center w-full my-4 md:my-6">
       {/* Album Cover Block Retro Gaming HUD Frame */}
-      <div className="relative w-64 h-64 md:w-72 md:h-72 border-4 border-black bg-retro-dark flex flex-col justify-center items-center shadow-[0_0_20px_rgba(255,45,120,0.30)] select-none">
+      <div className="relative w-64 h-64 md:w-72 md:h-72 border-4 border-retro-text bg-retro-dark flex flex-col justify-center items-center shadow-[0_0_20px_rgba(255,45,120,0.30)] select-none">
         
         {/* Glow corner brackets */}
         <div className="absolute -top-1.5 -left-1.5 w-4 h-4 border-t-4 border-l-4 border-hot-pink" />
@@ -24,7 +24,7 @@ export default function NowPlaying({ currentVideo, isPlaying }: NowPlayingProps)
         <div className="absolute -bottom-1.5 -right-1.5 w-4 h-4 border-b-4 border-r-4 border-hot-pink" />
 
         {/* Outer label HUD */}
-        <div className="absolute top-2 left-2 flex items-center gap-1.5 bg-[#400028] px-1.5 py-0.5 border border-black text-[7px] text-bubblegum">
+        <div className="absolute top-2 left-2 flex items-center gap-1.5 bg-retro-dark px-1.5 py-0.5 border border-retro-text text-[7px] text-bubblegum">
           <Radio size={8} className={`${isPlaying ? 'animate-pulse' : ''}`} />
           <span>DECK_01</span>
         </div>
@@ -42,12 +42,12 @@ export default function NowPlaying({ currentVideo, isPlaying }: NowPlayingProps)
         ) : (
           <div className="flex flex-col items-center justify-center text-center p-4">
             {/* Retro Vinyl Record Pixel Art Falling */}
-            <div className={`relative w-36 h-36 bg-[#0c0006] rounded-full border-4 border-black flex items-center justify-center p-3 ${isPlaying ? 'animate-spin' : ''}`} style={{ animationDuration: '6s' }}>
+            <div className={`relative w-36 h-36 bg-retro-bg rounded-full border-4 border-retro-text flex items-center justify-center p-3 ${isPlaying ? 'animate-spin' : ''}`} style={{ animationDuration: '6s' }}>
               {/* Grooves */}
-              <div className="w-full h-full rounded-full border-2 border-dashed border-[#5a003d] flex items-center justify-center">
+              <div className="w-full h-full rounded-full border-2 border-dashed border-retro-text flex items-center justify-center">
                 {/* Center tape label */}
-                <div className="w-12 h-12 bg-hot-pink rounded-full border-4 border-black flex items-center justify-center">
-                  <div className="w-4 h-4 bg-retro-bg rounded-full border-2 border-black" />
+                <div className="w-12 h-12 bg-hot-pink rounded-full border-4 border-retro-text flex items-center justify-center">
+                  <div className="w-4 h-4 bg-retro-bg rounded-full border-2 border-retro-text" />
                 </div>
               </div>
             </div>
@@ -58,7 +58,7 @@ export default function NowPlaying({ currentVideo, isPlaying }: NowPlayingProps)
         )}
 
         {/* Bouncing Equalizer Bars HUD Overlaid Bottom-Right */}
-        <div className="absolute bottom-3 right-3 flex items-end gap-1.5 h-12 px-2 py-1 bg-black/60 border border-black select-none pointer-events-none">
+        <div className="absolute bottom-3 right-3 flex items-end gap-1.5 h-12 px-2 py-1 bg-retro-text/60 border border-retro-text select-none pointer-events-none">
           <div className={`w-1.5 bg-hot-pink ${isPlaying ? 'eq-bar-1' : 'h-1'}`} />
           <div className={`w-1.5 bg-bubblegum ${isPlaying ? 'eq-bar-2' : 'h-2'}`} />
           <div className={`w-1.5 bg-hot-pink ${isPlaying ? 'eq-bar-3' : 'h-1.5'}`} />

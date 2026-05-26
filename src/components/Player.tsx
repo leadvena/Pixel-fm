@@ -61,7 +61,7 @@ export default function Player({
   const currentVolume = volume;
 
   return (
-    <div className="relative min-h-screen bg-retro-bg scrolling-bg flex flex-col items-center py-6 px-4 md:py-10 selection:bg-hot-pink selection:text-white">
+    <div className="relative min-h-screen bg-retro-bg scrolling-bg flex flex-col items-center py-6 px-4 md:py-10 selection:bg-hot-pink selection:text-retro-text">
       {/* Background Sparkles */}
       {sparkles.map((s) => (
         <div
@@ -79,11 +79,11 @@ export default function Player({
       <div className="relative max-w-md w-full pixel-border-window p-5 md:p-6 flex flex-col items-center z-10 select-none">
         
         {/* Console Header Bar */}
-        <div className="w-full flex justify-between items-center border-b-4 border-black pb-4 mb-4 select-none">
+        <div className="w-full flex justify-between items-center border-b-4 border-retro-text pb-4 mb-4 select-none">
           {/* Brand */}
           <div className="flex flex-col">
             <h1 className="text-lg md:text-xl text-hot-pink font-bold tracking-wider mb-0.5 uppercase">
-              PIXEL.FM<span className="blinking-cursor text-white" />
+              PIXEL.FM<span className="blinking-cursor text-retro-text" />
             </h1>
             <span className="text-[6px] tracking-widest text-deep-magenta uppercase font-bold">
               FM STEREO DEEP SOUNDS
@@ -106,7 +106,7 @@ export default function Player({
 
         {/* Audio Output Panel - Kept for aesthetics */}
         <div className="w-full mb-3 select-none">
-          <div className="w-full border-2 border-black bg-retro-dark p-2 flex justify-between items-center text-[8px] text-bubblegum tracking-widest">
+          <div className="w-full border-2 border-retro-text bg-retro-dark p-2 flex justify-between items-center text-[8px] text-bubblegum tracking-widest">
             <span className="flex items-center gap-1.5 uppercase font-bold">
               <Monitor size={10} className="text-hot-pink" />
               <span>OUT_CH: YT_IFRAME_API</span>
@@ -145,7 +145,7 @@ export default function Player({
             />
           </>
         ) : (
-          <div className="text-center p-8 border-4 border-dashed border-[#5a003d] w-full my-6 flex flex-col justify-center items-center">
+          <div className="text-center p-8 border-4 border-dashed border-retro-text w-full my-6 flex flex-col justify-center items-center">
             <span className="text-xl animate-bounce">📻</span>
             <div className="text-[10px] text-hot-pink tracking-widest uppercase font-bold mt-3">
               DEMO DECK STANDBY

@@ -5,23 +5,24 @@
   --font-sans: "Press Start 2P", system-ui, sans-serif;
   --font-pixel: "Press Start 2P", monospace;
   
-  --color-hot-pink: #FF2D78;
-  --color-bubblegum: #FFB3C6;
-  --color-deep-magenta: #C2185B;
-  --color-retro-dark: #1A0010;
-  --color-retro-bg: #12000A;
+  --color-hot-pink: #FF7FA6;
+  --color-bubblegum: #FFC2D1;
+  --color-deep-magenta: #D95D77;
+  --color-retro-dark: #FFF0F3;
+  --color-retro-bg: #FFE5EC;
+  --color-retro-text: #6B2D40;
 }
 
 /* custom global styles */
 body {
   font-family: var(--font-pixel), sans-serif;
   background-color: var(--color-retro-bg);
-  color: #FFF;
+  color: var(--color-retro-text);
   overflow-x: hidden;
-  image-rendering: pixelated;
+  image-rendering: auto; /* Smoother scaling for SVG elegance, pixels from font */
 }
 
-/* CRT Scanlines Screen Overlay */
+/* CRT Scanlines Screen Overlay (softened for elegance) */
 .crt-overlay {
   position: fixed;
   top: 0;
@@ -29,13 +30,13 @@ body {
   width: 100vw;
   height: 100vh;
   background: linear-gradient(
-    rgba(18, 16, 16, 0) 50%, 
-    rgba(0, 0, 0, 0.25) 50%
+    rgba(255, 230, 236, 0) 50%, 
+    rgba(217, 93, 119, 0.08) 50%
   );
   background-size: 100% 4px;
   z-index: 9999;
   pointer-events: none;
-  opacity: 0.8;
+  opacity: 0.6;
 }
 
 .crt-vignette {
@@ -46,9 +47,9 @@ body {
   height: 100%;
   background: radial-gradient(
     circle,
-    rgba(255, 45, 120, 0.05) 0%,
-    rgba(26, 0, 16, 0.4) 80%,
-    rgba(10, 0, 5, 0.8) 100%
+    rgba(255, 127, 166, 0.02) 0%,
+    rgba(255, 229, 236, 0.2) 80%,
+    rgba(217, 93, 119, 0.4) 100%
   );
   z-index: 9998;
   pointer-events: none;
@@ -57,28 +58,28 @@ body {
 /* Pixel Borders */
 .pixel-border-outer {
   box-shadow: 
-    0 -4px 0 -2px #000, 0 4px 0 -2px #000, 
-    -4px 0 0 -2px #000, 4px 0 0 -2px #000,
+    0 -4px 0 -2px var(--color-retro-text), 0 4px 0 -2px var(--color-retro-text), 
+    -4px 0 0 -2px var(--color-retro-text), 4px 0 0 -2px var(--color-retro-text),
     0 -6px 0 -2px var(--color-hot-pink), 0 6px 0 -2px var(--color-hot-pink),
     -6px 0 0 -2px var(--color-hot-pink), 6px 0 0 -2px var(--color-hot-pink);
 }
 
 .pixel-border-window {
-  border: 4px solid #000;
+  border: 4px solid var(--color-retro-text);
   box-shadow: 
     inset -4px -4px 0 0 var(--color-deep-magenta),
-    inset 4px 4px 0 0 var(--color-bubblegum),
-    0 0 15px rgba(255, 45, 120, 0.4);
-  background-color: #1A0010;
-  image-rendering: pxelated;
+    inset 4px 4px 0 0 #FFFFFF,
+    0 0 15px rgba(255, 127, 166, 0.3);
+  background-color: var(--color-retro-dark);
+  image-rendering: pixelated;
 }
 
 .pixel-border-panel {
-  border: 4px solid #000;
+  border: 4px solid var(--color-retro-text);
   box-shadow: 
-    inset -4px -4px 0 0 #3a0020,
-    inset 4px 4px 0 0 var(--color-hot-pink);
-  background-color: #250017;
+    inset -4px -4px 0 0 var(--color-bubblegum),
+    inset 4px 4px 0 0 #FFFFFF;
+  background-color: #FFFFFF;
 }
 
 /* Custom Pixel Art Buttons */
@@ -89,10 +90,10 @@ body {
   padding: 8px 16px;
   background-color: var(--color-hot-pink);
   color: #FFF;
-  border: 4px solid #000;
+  border: 4px solid var(--color-retro-text);
   box-shadow: 
     inset -4px -4px 0 0 var(--color-deep-magenta),
-    inset 4px 4px 0 0 var(--color-bubblegum);
+    inset 4px 4px 0 0 #FFFFFF;
   user-select: none;
   cursor: pointer;
   transition: transform 0.1s;
@@ -101,35 +102,35 @@ body {
 }
 
 .pixel-btn:hover {
-  background-color: #FF5293;
+  background-color: #FF9EBB;
 }
 
 .pixel-btn:active {
   transform: translateY(4px);
   box-shadow: 
     inset 4px 4px 0 0 var(--color-deep-magenta),
-    inset -4px -4px 0 0 var(--color-bubblegum);
+    inset -4px -4px 0 0 #FFFFFF;
 }
 
 .pixel-btn-secondary {
-  background-color: #250017;
-  color: var(--color-bubblegum);
-  border: 4px solid #000;
+  background-color: #FFFFFF;
+  color: var(--color-hot-pink);
+  border: 4px solid var(--color-retro-text);
   box-shadow: 
-    inset -4px -4px 0 0 #12000A,
-    inset 4px 4px 0 0 var(--color-deep-magenta);
+    inset -4px -4px 0 0 var(--color-bubblegum),
+    inset 4px 4px 0 0 #FFFFFF;
 }
 
 .pixel-btn-secondary:hover {
-  background-color: #380123;
-  color: #FFF;
+  background-color: var(--color-retro-dark);
+  color: var(--color-deep-magenta);
 }
 
 .pixel-btn-secondary:active {
   transform: translateY(4px);
   box-shadow: 
-    inset 4px 4px 0 0 #12000A,
-    inset -4px -4px 0 0 var(--color-deep-magenta);
+    inset 4px 4px 0 0 var(--color-bubblegum),
+    inset -4px -4px 0 0 #FFFFFF;
 }
 
 /* Custom Blocky Scrollbar */
@@ -137,15 +138,15 @@ body {
   width: 12px;
 }
 ::-webkit-scrollbar-track {
-  background: #1A0010;
-  border-left: 4px solid #000;
+  background: var(--color-retro-dark);
+  border-left: 4px solid var(--color-retro-text);
 }
 ::-webkit-scrollbar-thumb {
   background: var(--color-hot-pink);
-  border: 4px solid #000;
+  border: 4px solid var(--color-retro-text);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-bubblegum);
+  background: var(--color-deep-magenta);
 }
 
 /* Custom animations */
@@ -161,7 +162,7 @@ body {
 
 @keyframes textGlow {
   0%, 100% {
-    text-shadow: 0 0 5px var(--color-hot-pink), 0 0 10px var(--color-hot-pink);
+    text-shadow: 0 0 5px var(--color-bubblegum), 0 0 10px var(--color-bubblegum);
   }
   50% {
     text-shadow: 0 0 15px var(--color-hot-pink), 0 0 25px var(--color-hot-pink);
@@ -192,7 +193,7 @@ body {
   position: absolute;
   width: 8px;
   height: 8px;
-  background-color: #FFF;
+  background-color: var(--color-retro-text);
   opacity: 0.6;
   box-shadow: 
     0 -4px var(--color-bubblegum), 0 4px var(--color-bubblegum),
@@ -207,8 +208,8 @@ body {
 
 .scrolling-bg {
   background-image: 
-    radial-gradient(var(--color-deep-magenta) 1.5px, transparent 1.5px),
-    radial-gradient(var(--color-deep-magenta) 1.5px, transparent 1.5px);
+    radial-gradient(var(--color-bubblegum) 1.5px, transparent 1.5px),
+    radial-gradient(var(--color-bubblegum) 1.5px, transparent 1.5px);
   background-size: 32px 32px;
   background-position: 0 0, 16px 16px;
   animation: scrollBg 20s linear infinite;

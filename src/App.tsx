@@ -27,7 +27,7 @@ export default function App() {
   } = useYouTube();
 
   return (
-    <div className="relative min-h-screen font-sans bg-retro-bg text-white overflow-x-hidden antialiased select-none">
+    <div className="relative min-h-screen font-sans bg-retro-bg text-retro-text overflow-x-hidden antialiased select-none">
       
       {/* AUTHENTIC RETRO SPECIAL OVERLAYS */}
       {/* 1. CRT Scanlines effect */}
@@ -50,12 +50,12 @@ export default function App() {
               BOOTING PIXEL.FM...
             </div>
             {/* Health loader gauge */}
-            <div className="w-full bg-retro-bg border-4 border-black h-6 relative p-0.5 overflow-hidden">
+            <div className="w-full bg-retro-bg border-4 border-retro-text h-6 relative p-0.5 overflow-hidden">
               <div 
                 className="h-full bg-hot-pink uppercase" 
                 style={{ 
                   width: '75%',
-                  boxShadow: 'inset -4px -4px 0 0 #C2185B, inset 4px 4px 0 0 #FFB3C6',
+                  boxShadow: 'inset -4px -4px 0 0 var(--color-deep-magenta), inset 4px 4px 0 0 var(--color-bubblegum)',
                   animation: 'pulse 1.5s infinite ease-in-out'
                 }} 
               />

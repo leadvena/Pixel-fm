@@ -25,7 +25,7 @@ export default function Queue({ queue }: QueueProps) {
     <div className="w-full max-w-sm px-4 mt-6 mb-4 font-mono select-none">
       {/* Title */}
       <h3 className="text-[8px] md:text-[9px] text-bubblegum mb-3 uppercase tracking-widest font-bold flex items-center justify-between">
-        <span className="flex items-center gap-1.5 border-b-2 border-black pb-0.5">
+        <span className="flex items-center gap-1.5 border-b-2 border-retro-text pb-0.5">
           <Disc size={10} className="text-hot-pink animate-spin" style={{ animationDuration: '4s' }} />
           <span>STAGE_LINEUP (NEXT UP)</span>
         </span>
@@ -42,21 +42,21 @@ export default function Queue({ queue }: QueueProps) {
           return (
             <div
               key={song.id + '_' + i}
-              className={`flex items-center gap-3 p-2 border-2 border-black ${
+              className={`flex items-center gap-3 p-2 border-2 border-retro-text ${
                 isPlaceholder 
                   ? 'bg-retro-dark/40 opacity-50' 
                   : 'bg-retro-dark'
               }`}
             >
               {/* Retro index indicator */}
-              <div className="text-[10px] text-hot-pink font-bold bg-[#33001e] border-2 border-black w-8 h-8 flex items-center justify-center shrink-0">
+              <div className="text-[10px] text-hot-pink font-bold bg-retro-text border-2 border-retro-text w-8 h-8 flex items-center justify-center shrink-0">
                 {String(i + 1).padStart(2, '0')}
               </div>
 
               {/* Text metadata */}
               <div className="flex-1 min-w-0">
                 <div 
-                  className="text-[9px] text-white font-bold tracking-wide uppercase truncate" 
+                  className="text-[9px] text-retro-text font-bold tracking-wide uppercase truncate" 
                   dangerouslySetInnerHTML={{ __html: title }} 
                 />
                 <div 
@@ -70,7 +70,7 @@ export default function Queue({ queue }: QueueProps) {
                 {isPlaceholder ? (
                   <div className="w-1.5 h-1.5 bg-deep-magenta" />
                 ) : (
-                  <div className="w-1.5 h-1.5 bg-[#00D280] animate-ping" />
+                  <div className="w-1.5 h-1.5 bg-retro-text animate-ping" />
                 )}
               </div>
             </div>

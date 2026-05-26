@@ -46,7 +46,7 @@ export default function Controls({
           title="Shuffle"
           className={`pixel-btn shrink-0 w-11 h-11 flex items-center justify-center p-0 ${
             shuffleState 
-              ? 'bg-[#00D280] hover:bg-[#20E290] text-black shadow-[inset_-4px_-4px_0_0_#008A50,inset_4px_4px_0_0_#90FFD0]' 
+              ? 'bg-retro-text hover:bg-bubblegum text-retro-text shadow-[inset_-4px_-4px_0_0_#008A50,inset_4px_4px_0_0_#90FFD0]' 
               : 'pixel-btn-secondary text-bubblegum'
           }`}
           style={{ height: '44px', width: '44px' }}
@@ -70,7 +70,7 @@ export default function Controls({
           id="ctrl_play_pause"
           onClick={onPlayPause}
           title={isPlaying ? 'Pause' : 'Play'}
-          className="pixel-btn flex-1 shrink-0 bg-white text-retro-bg hover:bg-bubblegum border-4 border-black hover:text-black shadow-[inset_-4px_-4px_0_0_#BBB,inset_4px_4px_0_0_#FFF]"
+          className="pixel-btn flex-1 shrink-0 bg-white text-retro-text hover:bg-bubblegum border-4 border-retro-text shadow-[inset_-4px_-4px_0_0_#BBB,inset_4px_4px_0_0_#FFF]"
           style={{ height: '52px' }}
         >
           {isPlaying ? (
@@ -98,22 +98,22 @@ export default function Controls({
           title={`Repeat: ${repeatState}`}
           className={`pixel-btn shrink-0 flex flex-col items-center justify-center p-0 ${
             repeatState !== 'off'
-              ? 'bg-hot-pink text-white shadow-[inset_-4px_-4px_0_0_#C2185B,inset_4px_4px_0_0_#FFB3C6]'
+              ? 'bg-hot-pink text-retro-text shadow-[inset_-4px_-4px_0_0_var(--color-deep-magenta),inset_4px_4px_0_0_#FFB3C6]'
               : 'pixel-btn-secondary text-bubblegum'
           }`}
           style={{ height: '44px', width: '44px' }}
         >
           {repeatState === 'track' ? (
-            <Repeat1 size={14} strokeWidth={3} className="text-white" />
+            <Repeat1 size={14} strokeWidth={3} className="text-retro-text" />
           ) : (
-            <Repeat size={14} strokeWidth={3} className={repeatState === 'context' ? 'text-white' : ''} />
+            <Repeat size={14} strokeWidth={3} className={repeatState === 'context' ? 'text-retro-text' : ''} />
           )}
         </button>
       </div>
 
       {/* Mini status indicator labels */}
       <div className="flex justify-between w-full px-2 mt-2 select-none pointer-events-none">
-        <span className={`text-[6px] tracking-wide font-bold ${shuffleState ? 'text-[#00D280]' : 'text-deep-magenta'}`}>
+        <span className={`text-[6px] tracking-wide font-bold ${shuffleState ? 'text-retro-text' : 'text-deep-magenta'}`}>
           SHF: {shuffleState ? 'ON' : 'OFF'}
         </span>
         <span className="text-[6px] text-deep-magenta uppercase tracking-widest font-bold">
